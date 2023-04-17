@@ -1,0 +1,128 @@
+{
+  "uuid": "397d00c1-64a9-4b6b-9899-b3663cdfec72",
+  "lastMigration": 27,
+  "name": "Gabriel mobile challenge",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3001,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "9b3395f7-06f4-4a98-8c2a-1224cc83643c",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v1/videos/history",
+      "responses": [
+        {
+          "uuid": "7568538d-5e6a-43a5-b9df-c8746166238d",
+          "body": "{{setVar 'limit' (queryParam 'limit')}}\n{\n  \"data\": [\n    {{#repeat @limit}}\n    {\n      \"uri\": \"https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8\",\n      \"fileName\": \"{{@index}}#11-04-2023#03-00-08#11-04-2023#03-05-00.ts\",\n      \"videoInfo\": {\n        \"title\": \"Gabriel`s video history @index\",\n        \"subtitle\": \"{{faker 'lorem.sentence'}}\",\n        \"description\": \"{{faker 'lorem.sentence'}}\"\n      },\n      \"locationInfo\": {\n        \"id\": \"{{faker 'datatype.uuid'}}\",\n        \"name\": \"Condomínio edifício {{faker 'name.lastName'}}\",\n        \"address\": {\n          \"city\": \"{{faker 'address.city'}}\",\n          \"state\": \"{{faker 'address.stateAbbr'}}\",\n          \"address\": \"{{faker 'address.streetAddress'}}\",\n          \"latitude\": \"{{faker 'address.latitude'}}\",\n          \"longitude\": \"{{faker 'address.longitude'}}\"\n        }\n      }\n    }\n    {{/repeat}}\n  ],\n  \"status\": {\n    \"message\": null,\n    \"code\": 200\n  }\n}",
+          "latency": 0,
+          "statusCode": 202,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "90dab0a1-0c52-4552-b1fc-c982cb559e87",
+          "body": "{\n  \"data\": [],\n  \"status\": {\n    \"message\": \"Could not find the requested video list\",\n    \"code\": 400\n  }\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "limit",
+              "value": "-1",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "078088f3-2559-4df5-b2e2-a396aabd054a",
+          "body": "{\n  \"data\": [],\n  \"status\": {\n    \"message\": \"A unknow exception occurred. Try again later.\",\n    \"code\": 500\n  }\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "limit",
+              "value": "-2",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "9b3395f7-06f4-4a98-8c2a-1224cc83643c"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": []
+}
